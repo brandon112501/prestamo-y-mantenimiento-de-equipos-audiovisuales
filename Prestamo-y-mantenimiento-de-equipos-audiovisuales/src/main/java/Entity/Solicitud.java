@@ -3,16 +3,15 @@ package Entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "solicitudes")
-@Getter
-@Setter
+@Table(name = "solicitud")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Solicitud {
 
     @Id
@@ -20,20 +19,23 @@ public class Solicitud {
     private Long id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "solicitante_id", nullable = false)
-    private Usuario solicitante;
-
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
     @Column(name = "fecha_fin", nullable = false)
     private LocalDate fechaFin;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String motivo;
 
-    @Column(nullable = false)
-    private String estado;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "solicitante_id",nullable = false)
+    private Usuario solicitante;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_id",nullable = false)
+    private Estado estado;
 }
 
