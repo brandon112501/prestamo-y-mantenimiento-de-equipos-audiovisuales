@@ -1,36 +1,40 @@
 package Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "mantenimientos")
-@Getter
-@Setter
+@Table(name = "mantenimiento")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Mantenimiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "equipo_id", nullable = false)
-    private Equipo equipo;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String tipo;
 
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String diagnostico;
 
     private Double costo;
 
-    @Column(nullable = false)
-    private String estado;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipo_id",nullable = false)
+    private Equipo equipo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_id",nullable = false)
+    private Estado estado;
+
+
+
+
 }

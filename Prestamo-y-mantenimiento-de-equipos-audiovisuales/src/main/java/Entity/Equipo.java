@@ -1,15 +1,13 @@
 package Entity;
 import jakarta.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "equipos")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Equipo {
 
     @Id
@@ -19,15 +17,21 @@ public class Equipo {
     @Column(name = "codigo_inventario", nullable = false, unique = true)
     private String codigoInventario;
 
-    @Column(nullable = false)
+    @Column(nullable = false ,length = 50)
     private String tipo;
 
+
+    @Column(nullable = false,length = 50)
     private String marca;
 
+
+    @Column(nullable = false,length = 50)
     private String modelo;
 
-    @Column(nullable = false)
-    private String estado;
-
+    @Column(nullable = false, length = 100)
     private String ubicacion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_id",nullable = false)
+    private Estado estado;
 }
