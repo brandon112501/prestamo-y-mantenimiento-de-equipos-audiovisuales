@@ -1,15 +1,13 @@
 package Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "usuarios")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -19,9 +17,16 @@ public class Usuario {
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String correo;
 
-    @Column(nullable = false)
-    private String rol;
+    @Column(nullable = false, length = 255)
+    private String password;
+
+    @Column (nullable = false,length = 100)
+    private String unidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id",nullable = false)
+    private Rol rol;
 }
