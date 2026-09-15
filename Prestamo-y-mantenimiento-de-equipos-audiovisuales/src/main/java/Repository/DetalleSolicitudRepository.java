@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface DetalleSolicitudRepository extends JpaRepository<DetalleSolicitud, Long> {
 
-    // Este método será clave para saber qué equipos específicos tiene una solicitud
     List<DetalleSolicitud> findBySolicitudId(Long solicitudId);
 }
