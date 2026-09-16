@@ -10,5 +10,5 @@ import java.util.List;
 public interface AccesorioRepository extends JpaRepository<Accesorio, Long> {
 
 
-    List<Accesorio> findByEquipoId(Long equipoId);
+    List<Accesorio> findByEquipoAsociadoId(Long equipoId);
 }
