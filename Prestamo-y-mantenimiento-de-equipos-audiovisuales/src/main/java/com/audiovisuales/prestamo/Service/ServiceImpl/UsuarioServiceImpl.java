@@ -21,6 +21,21 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public Usuario obtenerPorId(Long id) {
+        return null;
+    }
+
+    @Override
+    public Usuario crear(Usuario usuario) {
+        return null;
+    }
+
+    @Override
+    public Usuario actualizar(Long id, Usuario usuario) {
+        return null;
+    }
+
+    @Override
     public Usuario guardarUsuario(Usuario usuario) {
 
         return usuarioRepository.save(usuario);

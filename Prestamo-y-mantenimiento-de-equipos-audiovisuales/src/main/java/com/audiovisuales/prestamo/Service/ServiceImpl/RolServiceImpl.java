@@ -8,21 +8,42 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+    @Service
+    public class RolServiceImpl implements RolService {
 
+        @Autowired
+        private RolRepository rolRepository;
 
-public class RolServiceImpl implements RolService {
+        @Override
+        public List<Rol> listarTodos() {
+            return rolRepository.findAll();
+        }
 
-    @Autowired
-    private RolRepository rolRepository;
+        @Override
+        public Rol obtenerPorId(Long id) {
 
-    @Override
-    public List<Rol> listarRoles() {
-        return rolRepository.findAll();
+            return rolRepository.findById(id).orElse(null);
+        }
+
+        @Override
+        public Rol crear(Rol rol) {
+            return rolRepository.save(rol);
+        }
+
+        @Override
+        public Rol actualizar(Long id, Rol rol) {
+
+            rol.setId(id);
+            return rolRepository.save(rol);
+        }
+
+        @Override
+        public void eliminar(Long id) {
+            rolRepository.deleteById(id);
+        }
+
+        @Override
+        public List<Rol> listarRoles() {
+            return List.of();
+        }
     }
-
-    @Override
-    public Rol guardarRol(Rol rol) {
-        return rolRepository.save(rol);
-    }
-}

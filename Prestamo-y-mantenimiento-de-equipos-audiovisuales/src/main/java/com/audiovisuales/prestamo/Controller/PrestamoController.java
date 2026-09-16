@@ -22,5 +22,7 @@ public class PrestamoController {
     @PostMapping
     public Prestamo guardarPrestamo(@RequestBody Prestamo prestamo) {
         return prestamoService.guardarPrestamo(prestamo);
+
+
     }
 }
