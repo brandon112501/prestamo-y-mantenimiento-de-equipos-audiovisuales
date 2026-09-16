@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-
-
     public String registrarUsuario(String nombre, String correo, String rol) {
 
         return "Usuario " + nombre + " registrado exitosamente con el rol: " + rol;
@@ -17,7 +15,6 @@ public class UsuarioService {
 
         return true;
     }
-
 
     public void validarPermisos(String rolRequerido, String rolActual) {
         if (!rolRequerido.equals(rolActual)) {
