@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 
-public class MediaControlApplication {
+public class
+MediaControlApplication {
     public static void main(String[] args) {
         SpringApplication.run(MediaControlApplication.class, args);
     }
