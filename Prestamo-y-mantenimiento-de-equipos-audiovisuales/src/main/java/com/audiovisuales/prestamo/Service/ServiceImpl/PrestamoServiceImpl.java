@@ -20,7 +20,9 @@ public class PrestamoServiceImpl implements PrestamoService {
     }
 
     @Override
-    public Prestamo guardarPrestamo(Prestamo prestamo) {
+    public Prestamo guardarPrestamo(Prestamo prestamo)
+
+    {
         return prestamoRepository.save(prestamo);
     }
 }
