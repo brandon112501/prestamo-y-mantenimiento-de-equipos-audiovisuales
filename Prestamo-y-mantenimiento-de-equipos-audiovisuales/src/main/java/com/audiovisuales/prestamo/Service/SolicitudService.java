@@ -5,9 +5,9 @@ import com.audiovisuales.prestamo.Entity.Solicitud;
 import java.util.List;
 
 public interface SolicitudService {
-    List<Solicitud> listarSolicitudes();
+    List<Solicitud> listarTodos();
     Solicitud obtenerPorId(Long id);
     Solicitud crear(Solicitud solicitud);
-    Rol actualizar(Long id, Rol rol);
-    Solicitud guardarSolicitud(Solicitud solicitud);
+    Solicitud actualizar(Long id, Solicitud solicitud);
+    void eliminar  (Long id);
 }

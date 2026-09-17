@@ -13,26 +13,31 @@ import java.util.List;
 public class PrestamoServiceImpl implements PrestamoService {
 
     @Autowired
-    private final PrestamoRepository prestamoRepository;
+    private  PrestamoRepository prestamoRepository;
 
-    public PrestamoServiceImpl(PrestamoRepository prestamoRepository) {
-        this.prestamoRepository = prestamoRepository;
+    @Override
+    public List<Prestamo> listarTodos() {
+        return prestamoRepository.findAll();
+    }
+    @Override
+    public Prestamo obtenerPorId(Long id) {
+        return prestamoRepository.findById(id).orElse(null);
+
+    }
+    @Override
+    public Prestamo crear(Prestamo prestamo) {
+        return prestamoRepository.save(prestamo);
     }
 
     @Override
-    public List<Prestamo> listarPrestamos() {
-        return repository.findAll();
+    public Prestamo actualizar(Long id, Prestamo prestamo) {
+        prestamo.setId(id);
+        return prestamoRepository.save(prestamo);
     }
 
-    @Override
-    public Prestamo guardarPrestamo(Prestamo prestamo)
-    {
-        return repository.save(prestamo);
-    }
 
     @Override
     public void eliminar(Long id) {
-        Estado estado = obtenerPorId(id);
-        repository.delete(estado);
+        prestamoRepository.deleteById(id);
     }
 }

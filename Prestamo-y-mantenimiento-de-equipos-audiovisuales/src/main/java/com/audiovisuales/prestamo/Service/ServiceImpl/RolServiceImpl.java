@@ -42,8 +42,4 @@ import java.util.List;
             rolRepository.deleteById(id);
         }
 
-        @Override
-        public List<Rol> listarRoles() {
-            return List.of();
-        }
     }

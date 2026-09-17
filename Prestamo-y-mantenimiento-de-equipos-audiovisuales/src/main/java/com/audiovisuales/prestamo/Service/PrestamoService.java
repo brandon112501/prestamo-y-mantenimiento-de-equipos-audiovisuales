@@ -6,8 +6,7 @@ import com.audiovisuales.prestamo.Entity.Rol;
 import java.util.List;
 
 public interface PrestamoService {
-    List<Prestamo> listarPrestamos();
-    Prestamo guardarPrestamo(Prestamo prestamo);
+    List<Prestamo> listarTodos();
     Prestamo obtenerPorId(Long id);
     Prestamo crear(Prestamo rol);
     Prestamo actualizar(Long id, Prestamo prestamo);

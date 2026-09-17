@@ -1,6 +1,5 @@
 package com.audiovisuales.prestamo.Service.ServiceImpl;
 
-import com.audiovisuales.prestamo.Entity.Rol;
 import com.audiovisuales.prestamo.Entity.Solicitud;
 import com.audiovisuales.prestamo.Repository.SolicitudRepository;
 import com.audiovisuales.prestamo.Service.SolicitudService;
@@ -16,27 +15,28 @@ public class SolicitudServiceImpl implements SolicitudService {
     private SolicitudRepository solicitudRepository;
 
     @Override
-    public List<Solicitud> listarSolicitudes() {
+    public List<Solicitud> listarTodos() {
         return solicitudRepository.findAll();
     }
 
     @Override
     public Solicitud obtenerPorId(Long id) {
-        return null;
+        return solicitudRepository.findById(id).orElse(null);
     }
 
     @Override
     public Solicitud crear(Solicitud solicitud) {
-        return null;
-    }
-
-    @Override
-    public Rol actualizar(Long id, Rol rol) {
-        return null;
-    }
-
-    @Override
-    public Solicitud guardarSolicitud(Solicitud solicitud) {
         return solicitudRepository.save(solicitud);
+    }
+
+    @Override
+    public Solicitud actualizar(Long id, Solicitud solicitud) {
+        solicitud.setId(id);
+        return solicitudRepository.save(solicitud);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        solicitudRepository.deleteById(id);
     }
 }

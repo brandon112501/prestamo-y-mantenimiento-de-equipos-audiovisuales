@@ -10,6 +10,5 @@ public interface RolService {
     Rol actualizar(Long id, Rol rol);
     void eliminar(Long id);
 
-    List<Rol> listarRoles();
 }
 

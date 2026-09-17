@@ -5,9 +5,9 @@ import com.audiovisuales.prestamo.Entity.Usuario;
 import java.util.List;
 
 public interface UsuarioService {
-    List<Usuario> listarUsuarios();
+    List<Usuario> listarTodos();
     Usuario obtenerPorId(Long id);
     Usuario crear(Usuario usuario);
     Usuario actualizar(Long id, Usuario usuario);
-    Usuario guardarUsuario(Usuario usuario);
+    void eliminar(Long id);
 }
