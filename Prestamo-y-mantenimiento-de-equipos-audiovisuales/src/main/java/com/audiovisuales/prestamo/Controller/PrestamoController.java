@@ -16,12 +16,12 @@ public class PrestamoController {
 
     @GetMapping
     public List<Prestamo> listarPrestamos() {
-        return prestamoService.listarPrestamos();
+        return prestamoService.listarTodos();
     }
 
     @PostMapping
-    public Prestamo guardarPrestamo(@RequestBody Prestamo prestamo) {
-        return prestamoService.guardarPrestamo(prestamo);
+    public Prestamo crearPrestamo(@RequestBody Prestamo prestamo) {
+        return prestamoService.crear(prestamo);
 
 
     }
