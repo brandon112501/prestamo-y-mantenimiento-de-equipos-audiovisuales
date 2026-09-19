@@ -12,4 +12,5 @@ public class UsuarioRequestDto {
     private String correo;
     @NotBlank(message = "La contraseña es obligatoria")
     private String contrasena;
+    private String unidad;
 }

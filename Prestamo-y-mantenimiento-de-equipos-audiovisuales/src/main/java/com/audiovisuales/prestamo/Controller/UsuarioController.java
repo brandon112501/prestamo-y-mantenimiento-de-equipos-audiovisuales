@@ -28,5 +28,22 @@ public class UsuarioController {
         UsuarioResponseDto nuevoUsuario = usuarioService.crear(requestDto);
         return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDto> obtenerPorId(@PathVariable Long id) {
+        UsuarioResponseDto usuario = usuarioService.obtenerPorId(id);
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDto> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDto requestDto) {
+        UsuarioResponseDto usuarioActualizado = usuarioService.actualizar(id, requestDto);
+        return ResponseEntity.ok(usuarioActualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

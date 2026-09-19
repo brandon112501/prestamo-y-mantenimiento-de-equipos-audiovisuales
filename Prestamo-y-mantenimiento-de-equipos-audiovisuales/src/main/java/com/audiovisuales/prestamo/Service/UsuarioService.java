@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface UsuarioService {
     List<Usuario> listarTodos();
-    Usuario obtenerPorId(Long id);
     UsuarioResponseDto crear(UsuarioRequestDto requestDto);
-    Usuario actualizar(Long id, Usuario usuario);
+    UsuarioResponseDto obtenerPorId(Long id);
+    UsuarioResponseDto actualizar(Long id, UsuarioRequestDto requestDto);
     void eliminar(Long id);
 }

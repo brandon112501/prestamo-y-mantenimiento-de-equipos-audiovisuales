@@ -22,7 +22,7 @@ public class Usuario {
     private String correo;
 
     @Column(nullable = false, length = 255)
-    private String password;
+    private String contrasena;
 
     @Column (nullable = false,length = 100)
     private String unidad;
@@ -31,6 +31,4 @@ public class Usuario {
     @JoinColumn(name = "rol_id",nullable = false)
     private Rol rol;
 
-    public void setContrasena(@NotBlank(message = "La contraseña es obligatoria") String contrasena) {
-    }
 }
