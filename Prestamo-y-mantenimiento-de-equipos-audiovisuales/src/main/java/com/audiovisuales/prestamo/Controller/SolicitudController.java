@@ -29,4 +29,20 @@ public class SolicitudController {
         SolicitudResponseDto nuevaSolicitud = solicitudService.crear(requestDto);
         return new ResponseEntity<>(nuevaSolicitud, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<SolicitudResponseDto> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitudService.obtenerPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SolicitudResponseDto> actualizar(@PathVariable Long id, @Valid @RequestBody SolicitudRequestDto requestDto) {
+        return ResponseEntity.ok(solicitudService.actualizar(id, requestDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        solicitudService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

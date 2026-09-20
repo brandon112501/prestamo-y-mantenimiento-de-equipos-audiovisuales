@@ -34,8 +34,7 @@ public class Solicitud {
     private Usuario solicitante;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estado_id",nullable = false)
-    private Estado estado;
+    @Column(name = "estado_id",nullable = false)
+    private String  estado;
 }
 

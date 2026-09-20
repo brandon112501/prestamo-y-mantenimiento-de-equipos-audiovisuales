@@ -22,10 +22,19 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public Solicitud obtenerPorId(Long id) {
-        return solicitudRepository.findById(id).orElse(null);
-    }
+    public SolicitudResponseDto obtenerPorId(Long id) {
+        Solicitud solicitud = solicitudRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Solicitud no encontrada con ID: " + id));
 
+        SolicitudResponseDto responseDto = new SolicitudResponseDto();
+        responseDto.setId(solicitud.getId());
+        responseDto.setFechaInicio(solicitud.getFechaInicio());
+        responseDto.setFechaFin(solicitud.getFechaFin());
+        responseDto.setMotivo(solicitud.getMotivo());
+        responseDto.setEstado(solicitud.getEstado());
+
+        return responseDto;
+    }
 
     @Override
     public SolicitudResponseDto crear(SolicitudRequestDto requestDto) {
@@ -35,7 +44,7 @@ public class SolicitudServiceImpl implements SolicitudService {
         nuevaSolicitud.setFechaInicio(requestDto.getFechaInicio());
         nuevaSolicitud.setFechaFin(requestDto.getFechaFin());
         nuevaSolicitud.setMotivo(requestDto.getMotivo());
-        //nuevaSolicitud.setEstado("PENDIENTE");
+        nuevaSolicitud.setEstado("PENDIENTE");
 
         Solicitud solicitudGuardada = solicitudRepository.save(nuevaSolicitud);
 
@@ -45,14 +54,29 @@ public class SolicitudServiceImpl implements SolicitudService {
         responseDto.setFechaInicio(solicitudGuardada.getFechaInicio());
         responseDto.setFechaFin(solicitudGuardada.getFechaFin());
         responseDto.setMotivo(solicitudGuardada.getMotivo());
-        //responseDto.setEstado(solicitudGuardada.getEstado());
+        responseDto.setEstado(solicitudGuardada.getEstado());
 
         return responseDto;
     }
+
     @Override
-    public Solicitud actualizar(Long id, Solicitud solicitud) {
-        solicitud.setId(id);
-        return solicitudRepository.save(solicitud);
+    public SolicitudResponseDto actualizar(Long id, SolicitudRequestDto requestDto) {
+        Solicitud solicitudExistente = solicitudRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Solicitud no encontrada con ID: " + id));
+
+        solicitudExistente.setFechaInicio(requestDto.getFechaInicio());
+        solicitudExistente.setFechaFin(requestDto.getFechaFin());
+        solicitudExistente.setMotivo(requestDto.getMotivo());
+
+        Solicitud solicitudGuardada = solicitudRepository.save(solicitudExistente);
+
+        SolicitudResponseDto responseDto = new SolicitudResponseDto();
+        responseDto.setId(solicitudGuardada.getId());
+        responseDto.setFechaInicio(solicitudGuardada.getFechaInicio());
+        responseDto.setFechaFin(solicitudGuardada.getFechaFin());
+        responseDto.setMotivo(solicitudGuardada.getMotivo());
+
+        return responseDto;
     }
 
     @Override

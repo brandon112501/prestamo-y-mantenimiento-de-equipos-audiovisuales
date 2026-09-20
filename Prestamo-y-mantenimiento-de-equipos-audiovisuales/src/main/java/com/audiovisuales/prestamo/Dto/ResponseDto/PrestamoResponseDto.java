@@ -10,4 +10,6 @@ public class PrestamoResponseDto {
     private LocalDateTime fechaDevolucion;
     private String observaciones;
     private String estado;
+    private String novedades;
+    private String estadoFinal;
 }

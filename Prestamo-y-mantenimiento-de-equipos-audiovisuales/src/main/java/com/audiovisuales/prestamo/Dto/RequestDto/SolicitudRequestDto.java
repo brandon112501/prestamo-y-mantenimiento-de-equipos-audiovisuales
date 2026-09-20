@@ -23,4 +23,5 @@ public class SolicitudRequestDto {
 
     @NotNull(message = "El ID del usuario es obligatorio")
     private Long usuarioId;
+
 }

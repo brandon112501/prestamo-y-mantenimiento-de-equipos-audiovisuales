@@ -22,9 +22,19 @@ public class PrestamoServiceImpl implements PrestamoService {
         return prestamoRepository.findAll();
     }
     @Override
-    public Prestamo obtenerPorId(Long id) {
-        return prestamoRepository.findById(id).orElse(null);
+    public PrestamoResponseDto obtenerPorId(Long id) {
+        Prestamo prestamo = prestamoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado con ID: " + id));
 
+        PrestamoResponseDto responseDto = new PrestamoResponseDto();
+        responseDto.setId(prestamo.getId());
+        responseDto.setFechaPrestamo(prestamo.getFechaEntrega());
+        responseDto.setFechaDevolucion(prestamo.getFechaDevolucion());
+        responseDto.setEstado(prestamo.getEstadoInicial());
+        responseDto.setEstadoFinal(prestamo.getEstadoFinal());
+        responseDto.setNovedades(prestamo.getNovedades());
+
+        return responseDto;
     }
 
     @Override
@@ -52,9 +62,24 @@ public class PrestamoServiceImpl implements PrestamoService {
 
 
     @Override
-    public Prestamo actualizar(Long id, Prestamo prestamo) {
-        prestamo.setId(id);
-        return prestamoRepository.save(prestamo);
+    public PrestamoResponseDto actualizar(Long id, PrestamoRequestDto requestDto) {
+        Prestamo prestamoExistente = prestamoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado con ID: " + id));
+
+        prestamoExistente.setFechaEntrega(requestDto.getFechaPrestamo());
+        prestamoExistente.setFechaDevolucion(requestDto.getFechaDevolucion());
+        prestamoExistente.setEstadoFinal(requestDto.getEstadoFinal());
+        prestamoExistente.setNovedades(requestDto.getNovedades());
+
+        Prestamo prestamoGuardado = prestamoRepository.save(prestamoExistente);
+
+        PrestamoResponseDto responseDto = new PrestamoResponseDto();
+        responseDto.setId(prestamoGuardado.getId());
+        responseDto.setFechaPrestamo(prestamoGuardado.getFechaEntrega());
+        responseDto.setFechaDevolucion(prestamoGuardado.getFechaDevolucion());
+        responseDto.setEstado(prestamoGuardado.getEstadoInicial());
+
+        return responseDto;
     }
 
 

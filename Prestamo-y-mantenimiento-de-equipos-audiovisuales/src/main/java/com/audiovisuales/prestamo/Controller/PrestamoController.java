@@ -29,5 +29,21 @@ public class PrestamoController {
         PrestamoResponseDto nuevoPrestamo = prestamoService.crear(requestDto);
         return new ResponseEntity<>(nuevoPrestamo, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<PrestamoResponseDto> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(prestamoService.obtenerPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PrestamoResponseDto> actualizar(@PathVariable Long id, @Valid @RequestBody PrestamoRequestDto requestDto) {
+        return ResponseEntity.ok(prestamoService.actualizar(id, requestDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        prestamoService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

@@ -11,8 +11,9 @@ import java.util.List;
 public interface PrestamoService {
 
     List<Prestamo> listarTodos();
-    Prestamo obtenerPorId(Long id);
-    PrestamoResponseDto crear(PrestamoRequestDto requestDto);
-    Prestamo actualizar(Long id, Prestamo prestamo);
+    PrestamoResponseDto obtenerPorId(Long id);
+    PrestamoResponseDto crear(PrestamoRequestDto RequestDto);
+    PrestamoResponseDto actualizar(Long id, PrestamoRequestDto RequestDto);
     void eliminar(Long id);
+
 }
