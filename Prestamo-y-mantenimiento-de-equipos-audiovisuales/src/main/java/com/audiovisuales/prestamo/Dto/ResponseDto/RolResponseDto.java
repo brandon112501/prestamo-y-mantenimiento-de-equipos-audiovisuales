@@ -8,6 +8,7 @@ import lombok.Data;
 public class RolResponseDto {
 
     private Long id;
-    private String nombre;
+    private String nombreRol;
+    private String descripcion;
 
 }

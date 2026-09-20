@@ -22,16 +22,10 @@ import java.util.List;
         }
 
         @Override
-        public Rol obtenerPorId(Long id) {
-
-            return rolRepository.findById(id).orElse(null);
-        }
-
-        @Override
         public RolResponseDto crear(RolRequestDto requestDto) {
 
             Rol nuevoRol = new Rol();
-            nuevoRol.setNombreRol(requestDto.getNombre());
+            nuevoRol.setNombreRol(requestDto.getNombreRol());
 
 
 
@@ -40,16 +34,40 @@ import java.util.List;
 
             RolResponseDto responseDto = new RolResponseDto();
             responseDto.setId(rolGuardado.getId());
-            responseDto.setNombre(rolGuardado.getNombreRol());
+            responseDto.setNombreRol(rolGuardado.getNombreRol());
 
             return responseDto;
         }
 
         @Override
-        public Rol actualizar(Long id, Rol rol) {
+        public RolResponseDto obtenerPorId(Long id) {
+            Rol rol = rolRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado con ID: " + id));
 
-            rol.setId(id);
-            return rolRepository.save(rol);
+            RolResponseDto responseDto = new RolResponseDto();
+            responseDto.setId(rol.getId());
+            responseDto.setNombreRol(rol.getNombreRol());
+            responseDto.setDescripcion(rol.getDescripcion());
+
+            return responseDto;
+        }
+
+        @Override
+        public RolResponseDto actualizar(Long id, RolRequestDto requestDto) {
+            Rol rolExistente = rolRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado con ID: " + id));
+
+            rolExistente.setNombreRol(requestDto.getNombreRol());
+            rolExistente.setDescripcion(requestDto.getDescripcion());
+
+            Rol rolGuardado = rolRepository.save(rolExistente);
+
+            RolResponseDto responseDto = new RolResponseDto();
+            responseDto.setId(rolGuardado.getId());
+            responseDto.setNombreRol(rolGuardado.getNombreRol());
+            responseDto.setDescripcion(rolGuardado.getDescripcion());
+
+            return responseDto;
         }
 
         @Override

@@ -8,6 +8,7 @@ import lombok.Data;
 public class RolRequestDto {
 
     @NotBlank(message = "El nombre del rol es obligatorio")
-    private String nombre;
+    private String nombreRol;
+    private String descripcion;
 
 }

@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface SolicitudService {
     List<Solicitud> listarTodos();
-    Solicitud obtenerPorId(Long id);
+    SolicitudResponseDto obtenerPorId(Long id);
     SolicitudResponseDto crear(SolicitudRequestDto requestDto);
-    Solicitud actualizar(Long id, Solicitud solicitud);
+    SolicitudResponseDto actualizar(Long id, SolicitudRequestDto requestDto);
     void eliminar  (Long id);
-}
+
+  }
