@@ -1,7 +1,9 @@
 package com.audiovisuales.prestamo.Controller;
 
-import com.audiovisuales.prestamo.Entity.Mantenimiento;
+import com.audiovisuales.prestamo.Dto.RequestDto.MantenimientoRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.MantenimientoResponseDto;
 import com.audiovisuales.prestamo.Service.MantenimientoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +14,37 @@ import java.util.List;
 @RequestMapping("/api/mantenimientos")
 public class MantenimientoController {
 
-    private final MantenimientoService service;
+    private final MantenimientoService mantenimientoService;
 
-    public MantenimientoController(MantenimientoService service) {
-        this.service = service;
+    public MantenimientoController(MantenimientoService mantenimientoService) {
+        this.mantenimientoService = mantenimientoService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Mantenimiento>> listarTodos() {
-        return ResponseEntity.ok(service.listarTodos());
+    public ResponseEntity<List<MantenimientoResponseDto>> obtenerTodos() {
+        return ResponseEntity.ok(mantenimientoService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mantenimiento> obtenerPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.obtenerPorId(id));
+    public ResponseEntity<MantenimientoResponseDto> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(mantenimientoService.obtenerPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<Mantenimiento> crear(@RequestBody Mantenimiento mantenimiento) {
-        return new ResponseEntity<>(service.crear(mantenimiento), HttpStatus.CREATED);
+    public ResponseEntity<MantenimientoResponseDto> crear(@Valid @RequestBody MantenimientoRequestDto request) {
+        return new ResponseEntity<>(mantenimientoService.crear(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Mantenimiento> actualizar(@PathVariable Long id, @RequestBody Mantenimiento mantenimiento) {
-        return ResponseEntity.ok(service.actualizar(id, mantenimiento));
+    public ResponseEntity<MantenimientoResponseDto> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody MantenimientoRequestDto request) {
+        return ResponseEntity.ok(mantenimientoService.actualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        service.eliminar(id);
+        mantenimientoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }

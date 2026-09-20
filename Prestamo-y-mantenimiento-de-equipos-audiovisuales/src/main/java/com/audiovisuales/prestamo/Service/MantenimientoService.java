@@ -1,12 +1,19 @@
 package com.audiovisuales.prestamo.Service;
 
-import com.audiovisuales.prestamo.Entity.Mantenimiento;
+import com.audiovisuales.prestamo.Dto.RequestDto.MantenimientoRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.MantenimientoResponseDto;
+
 import java.util.List;
 
 public interface MantenimientoService {
-    List<Mantenimiento> listarTodos();
-    Mantenimiento obtenerPorId(Long id);
-    Mantenimiento crear(Mantenimiento mantenimiento);
-    Mantenimiento actualizar(Long id, Mantenimiento mantenimiento);
+
+    List<MantenimientoResponseDto> obtenerTodos();
+
+    MantenimientoResponseDto obtenerPorId(Long id);
+
+    MantenimientoResponseDto crear(MantenimientoRequestDto request);
+
+    MantenimientoResponseDto actualizar(Long id, MantenimientoRequestDto request);
+
     void eliminar(Long id);
 }

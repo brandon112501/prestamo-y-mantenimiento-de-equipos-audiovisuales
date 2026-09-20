@@ -1,44 +1,50 @@
 package com.audiovisuales.prestamo.Controller;
 
-import com.audiovisuales.prestamo.Entity.Estado;
+import com.audiovisuales.prestamo.Dto.RequestDto.EstadoRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.EstadoResponseDto;
 import com.audiovisuales.prestamo.Service.EstadoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/estados")
-@CrossOrigin(origins = "*")
 public class EstadoController {
 
-    private final EstadoService service;
+    private final EstadoService estadoService;
 
-    public EstadoController(EstadoService service) {
-        this.service = service;
+    public EstadoController(EstadoService estadoService) {
+        this.estadoService = estadoService;
     }
 
     @GetMapping
-    public List<Estado> listarTodos() {
-        return service.listarTodos();
+    public ResponseEntity<List<EstadoResponseDto>> obtenerTodos() {
+        return ResponseEntity.ok(estadoService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
-    public Estado obtenerPorId(@PathVariable Long id) {
-        return service.obtenerPorId(id);
+    public ResponseEntity<EstadoResponseDto> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(estadoService.obtenerPorId(id));
     }
 
     @PostMapping
-    public Estado crear(@RequestBody Estado estado) {
-        return service.crear(estado);
+    public ResponseEntity<EstadoResponseDto> crear(@Valid @RequestBody EstadoRequestDto request) {
+        return new ResponseEntity<>(estadoService.crear(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public Estado actualizar(@PathVariable Long id, @RequestBody Estado detalles) {
-        return service.actualizar(id, detalles);
+    public ResponseEntity<EstadoResponseDto> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody EstadoRequestDto request) {
+        return ResponseEntity.ok(estadoService.actualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        service.eliminar(id);
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        estadoService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }
