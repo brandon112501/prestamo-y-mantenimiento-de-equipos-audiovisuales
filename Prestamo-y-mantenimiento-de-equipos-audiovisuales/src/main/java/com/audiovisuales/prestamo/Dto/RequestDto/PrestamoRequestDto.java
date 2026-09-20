@@ -1,23 +1,37 @@
 package com.audiovisuales.prestamo.Dto.RequestDto;
 
-
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PrestamoRequestDto {
 
-    @NotNull(message = "La fecha de préstamo es obligatoria")
-    @FutureOrPresent(message = "La fecha de préstamo no puede ser en el pasado")
-    private LocalDateTime fechaPrestamo;
+    @NotNull(message = "La fecha de entrega es obligatoria")
+    private LocalDateTime fechaEntrega;
 
-    @NotNull(message = "La fecha de devolución esperada es obligatoria")
-    @FutureOrPresent(message = "La fecha de devolución no puede ser en el pasado")
     private LocalDateTime fechaDevolucion;
 
-    private String observaciones;
+    @Size(max = 50, message = "El estado inicial no puede superar los 50 caracteres")
+    private String estadoInicial;
+
+    @Size(max = 50, message = "El estado final no puede superar los 50 caracteres")
     private String estadoFinal;
+
     private String novedades;
+
+    @NotNull(message = "El ID de la solicitud es obligatorio")
+    private Long solicitudId;
+
+    @NotNull(message = "El ID del responsable es obligatorio")
+    private Long responsableId;
+
+    @NotNull(message = "El ID del estado es obligatorio")
+    private Long estadoId;
 }

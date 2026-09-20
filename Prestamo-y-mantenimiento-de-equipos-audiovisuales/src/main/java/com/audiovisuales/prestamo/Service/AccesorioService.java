@@ -1,12 +1,19 @@
 package com.audiovisuales.prestamo.Service;
 
-import com.audiovisuales.prestamo.Entity.Accesorio;
+import com.audiovisuales.prestamo.Dto.RequestDto.AccesorioRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.AccesorioResponseDto;
+
 import java.util.List;
 
 public interface AccesorioService {
-    List<Accesorio> listarTodos();
-    Accesorio obtenerPorId(Long id);
-    Accesorio crear(Accesorio accesorio);
-    Accesorio actualizar(Long id, Accesorio accesorio);
+
+    List<AccesorioResponseDto> obtenerTodos();
+
+    AccesorioResponseDto obtenerPorId(Long id);
+
+    AccesorioResponseDto crear(AccesorioRequestDto request);
+
+    AccesorioResponseDto actualizar(Long id, AccesorioRequestDto request);
+
     void eliminar(Long id);
 }

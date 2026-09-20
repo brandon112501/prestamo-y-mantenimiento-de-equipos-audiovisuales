@@ -1,7 +1,9 @@
 package com.audiovisuales.prestamo.Controller;
 
-import com.audiovisuales.prestamo.Entity.DetalleSolicitud;
+import com.audiovisuales.prestamo.Dto.RequestDto.DetalleSolicitudRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.DetalleSolicitudResponseDto;
 import com.audiovisuales.prestamo.Service.DetalleSolicitudService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +14,37 @@ import java.util.List;
 @RequestMapping("/api/detalles-solicitud")
 public class DetalleSolicitudController {
 
-    private final DetalleSolicitudService service;
+    private final DetalleSolicitudService detalleSolicitudService;
 
-    public DetalleSolicitudController(DetalleSolicitudService service) {
-        this.service = service;
+    public DetalleSolicitudController(DetalleSolicitudService detalleSolicitudService) {
+        this.detalleSolicitudService = detalleSolicitudService;
     }
 
     @GetMapping
-    public ResponseEntity<List<DetalleSolicitud>> listarTodos() {
-        return ResponseEntity.ok(service.listarTodos());
+    public ResponseEntity<List<DetalleSolicitudResponseDto>> obtenerTodos() {
+        return ResponseEntity.ok(detalleSolicitudService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalleSolicitud> obtenerPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.obtenerPorId(id));
+    public ResponseEntity<DetalleSolicitudResponseDto> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(detalleSolicitudService.obtenerPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<DetalleSolicitud> crear(@RequestBody DetalleSolicitud detalleSolicitud) {
-        return new ResponseEntity<>(service.crear(detalleSolicitud), HttpStatus.CREATED);
+    public ResponseEntity<DetalleSolicitudResponseDto> crear(@Valid @RequestBody DetalleSolicitudRequestDto request) {
+        return new ResponseEntity<>(detalleSolicitudService.crear(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DetalleSolicitud> actualizar(@PathVariable Long id, @RequestBody DetalleSolicitud detalleSolicitud) {
-        return ResponseEntity.ok(service.actualizar(id, detalleSolicitud));
+    public ResponseEntity<DetalleSolicitudResponseDto> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody DetalleSolicitudRequestDto request) {
+        return ResponseEntity.ok(detalleSolicitudService.actualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        service.eliminar(id);
+        detalleSolicitudService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }
