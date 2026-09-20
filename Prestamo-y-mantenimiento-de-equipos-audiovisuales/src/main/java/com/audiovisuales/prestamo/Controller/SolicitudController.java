@@ -1,8 +1,13 @@
 package com.audiovisuales.prestamo.Controller;
 
+import com.audiovisuales.prestamo.Dto.RequestDto.SolicitudRequestDto;
+import com.audiovisuales.prestamo.Dto.ResponseDto.SolicitudResponseDto;
 import com.audiovisuales.prestamo.Entity.Solicitud;
 import com.audiovisuales.prestamo.Service.SolicitudService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +21,12 @@ public class SolicitudController {
 
     @GetMapping
     public List<Solicitud> listarSolicitudes() {
-        return solicitudService.listarSolicitudes();
+        return solicitudService.listarTodos();
     }
 
     @PostMapping
-    public Solicitud guardarSolicitud(@RequestBody Solicitud solicitud) {
-        return solicitudService.guardarSolicitud(solicitud);
+    public ResponseEntity<SolicitudResponseDto> crearSolicitud(@Valid @RequestBody SolicitudRequestDto requestDto) {
+        SolicitudResponseDto nuevaSolicitud = solicitudService.crear(requestDto);
+        return new ResponseEntity<>(nuevaSolicitud, HttpStatus.CREATED);
     }
 }
